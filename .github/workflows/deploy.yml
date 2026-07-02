@@ -22,8 +22,8 @@ jobs:
           -n labdeploy-webapp-jcd \
           --container-image-name labdeployacrjcd.azurecr.io/myapp:latest \
           --container-registry-url https://labdeployacrjcd.azurecr.io \
-          --container-registry-user <USERNAME> \
-          --container-registry-password <PASSWORD>
+          --container-registry-user ${{secrets.ACR_USER}} \
+          --container-registry-password ${{secrets.ACR_PWD}}
       - name: Sign in to Azure
         uses: azure/login@v2
         with:
