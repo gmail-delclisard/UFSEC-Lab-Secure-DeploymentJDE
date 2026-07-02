@@ -12,16 +12,16 @@ jobs:
       - name: Push to ACR
         run: |
           az login --service-principal -u ${{ secrets.AZURE_USER }} -p ${{ secrets.AZURE_PASS }} --tenant ${{ secrets.AZURE_TENANT }}
-          az acr login -n labdeployacr
-          docker tag myapp:latest labdeployacr.azurecr.io/myapp:latest
-          docker push labdeployacr.azurecr.io/myapp:latest
+          az acr login -n labdeployacrjcd
+          docker tag myapp:latest labdeployacrjcd.azurecr.io/myapp:latest
+          docker push labdeployacrjcd.azurecr.io/myapp:latest
       - name: Deploy to WebApp
         run: |
           az webapp config container set \
-          -g RGLabDeploy \
-          -n labdeploy-webapp \
-          --container-image-name labdeployacr.azurecr.io/myapp:latest \
-          --container-registry-url https://labdeployacr.azurecr.io \
+          -g RGLabDeploy-jcd \
+          -n labdeploy-webapp-jcd \
+          --container-image-name labdeployacrjcd.azurecr.io/myapp:latest \
+          --container-registry-url https://labdeployacrjcd.azurecr.io \
           --container-registry-user <USERNAME> \
           --container-registry-password <PASSWORD>
       - name: Sign in to Azure
